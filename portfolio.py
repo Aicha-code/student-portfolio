@@ -38,34 +38,92 @@ if page == "Home":
     st.write("About Me")
     st.markdown(st.session_state.about_me)
 
+    # Testimonials Section
+    st.header("🗣️Testimonials")
+    st.subheader("What People Say About Me")
+
+    # Testimonial from Abesolo 
+    with st.container():
+        st.markdown("**Abesolo Flora**")
+        st.write('"She\'s one of the most inspiring student I have met, a very nice classmate and friend."')
+
+
+    # Testimonial from Emanuel Nsengiyumva
+
+    with st.container():
+
+        st.markdown("**Emanuel Ntamack**")
+        st.write('"One of the most serious students of this promotion."')
+
 # pprojects section
 elif page=="projects":
         st.title("My Projects 👩🏽‍💻")
-        with st.expander("Rwd-Travel Agency | type: group project"):
-            st.write("A travel agency webApp built using HTML, CSS, JS, Flask, SQL, and tkinter")
-            st.markdown("The Rwd-Travel website provides a seamless platform for travelers to book activities, flights, and accommodations while exploring Rwanda’s rich cultural heritage. With its userfirendly interface, it ensures an effortless user experience. The website features secure data management and efficient booking processes to meet diverse travel needs.")
-            st.write("📌click the button below to download the report")
-            with open('Rw_Travel_Technicalreport.pdf', 'rb') as file:
-                report_bytes=file.read()
-                st.download_button(label="📄 Download Report", data=report_bytes, file_name="Rw_Travel_Technicalreport.pdf",mime="application/pdf")
-    
+        projects = [
+        {
+            "title": "Rwd-Travel Agency",
+            "type": "Group Project",
+            "description": "A travel agency webApp built using HTML, CSS, JS, Flask, SQL, and tkinter.",
+            "details": "The Rwd-Travel website provides a seamless platform for travelers to book activities, flights, and accommodations while exploring Rwanda’s rich cultural heritage.",
+            "report": "Rw_Travel_Technicalreport.pdf",
+            "download_label": "📄 Download Report"
 
+        },
+
+        {
+            "title": "Student Management System",
+            "type": "Class Project",
+            "description": "A desktop Application developed using .NET with WinForm and an SQLite database.",
+            "details": "The system is a student management system application (SMS) whose core features are its ability to communicate with a database and allow the user to perform CRUD operations.",
+            "github": [
+
+                "https://github.com/Aicha-code/Student-Management-System-with-.NET-DesktopApp-",
+                "https://github.com/Aicha-code/Student-management-System-with-.NET"
+
+            ]
+
+        },
+
+        {
+
+            "title": "Plagiarism Proctor",
+            "type": "Individual Project",
+            "description": "This is my final year project on the topic 'Machine Learning-Based Similarities Checker System for Enhancing Examination Quality in Academic Institutions'.",
+            "details": "I am thrilled to be working on it and will be posting about it soon, stay tuned to know more...",
+            "report": "PLAGIARISM_PROCTOR.pdf",
+            "download_label": "📄 Download SNEEKPEAK"
+
+        }
+
+    ]
         
-        with st.expander("Student Management system | type: class project"):
-            st.write("A desktop Application developped using .NET with WinForm and an SQlite database")
-            st.markdown("🖇️github repository: https://github.com/Aicha-code/Student-Management-System-with-.NET-DesktopApp-")
-            st.markdown("The system is a student management system application (SMS) whose core features are its ability to communicate with a database and allow the user to perform CRUD operations (Create, Read, Update, Delete) on student information. The system was designed to be used by academic staff it leverages a user-friendly WinForm interface that is straightforward, and easy to use, with a user authentication logic and attendance tracking interface. ")
-            st.write("⚠️note that we have also built a web version of this project using .NET and SQlite")
-            st.markdown("🖇️github repository: https://github.com/Aicha-code/Student-management-System-with-.NET")
-        
-        
-        with st.expander("Plagiarism proctor | type: individual project"):
-            st.write("this is my final year project on the topic'Machine Learning-Based Similarities Checker System for Enhancing Examination Quality in Academic Institutions' I am thrilled to be working on it and will be posting about it soon, stay tuned to know more...")
-            st.write("📌click the button below to download a sneekpeak of what's to come")
-            with open('PLAGIARISM_PROCTOR.pdf', 'rb') as file:
-                SNEEKPEAK_bytes=file.read()
-                st.download_button(label="📄 Download SNEEKPEAK", data=SNEEKPEAK_bytes, file_name="PLAGIARISM_PROCTOR.pdf",mime="application/pdf")
-    
+         # Filter options
+        project_types = list(set(project["type"] for project in projects))
+        selected_type = st.selectbox("Select project type to filter:", ["All"] + project_types)
+
+        # Display projects based on selected type
+        for project in projects:
+            if selected_type == "All" or project["type"] == selected_type:
+                with st.expander(f"{project['title']} | type: {project['type']}"):
+                    st.write(project["description"])
+                    st.markdown(project["details"])
+                    # Download button if report exists
+                    if "report" in project:
+
+                        with open(project["report"], 'rb') as file:
+                            report_bytes = file.read()
+                            st.download_button(
+                                label=project["download_label"],
+                                data=report_bytes,
+                                file_name=project["report"],
+                                mime="application/pdf",
+                                key=f"download_{project['title'].replace(' ', '_')}"  # Unique key for each button
+                            )
+                    # GitHub links if they exist
+
+                    if "github" in project:
+                        for link in project["github"]:
+                            st.markdown(f"🖇️ [GitHub Repository]({link})")
+
 
 #skills section
 elif page =="Skills & achievements":
@@ -102,10 +160,10 @@ elif page=="Edit profile":
         st.image(uploaded_image, width=150, caption="")
     st.subheader("Edit your profile information")
     name = st.text_input("Name: ")
-    location = st.text_input("Enter your name:", st.session_state.location)
-    about_me = st.text_input("Enter your name:", st.session_state.about_me)
-    formation = st.text_input("Enter your name:", st.session_state.formation)
-    university = st.text_input("Enter your name:", st.session_state.university)
+    location = st.text_input("Enter your location:", st.session_state.location)
+    about_me = st.text_input("Enter your bio:", st.session_state.about_me)
+    formation = st.text_input("Enter your formation:", st.session_state.formation)
+    university = st.text_input("Enter your university:", st.session_state.university)
     
     if st.button("Update Info"):
         # Update session state with new values
