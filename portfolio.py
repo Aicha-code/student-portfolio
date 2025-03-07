@@ -144,19 +144,19 @@ elif page=="projects":
 elif page =="Skills & achievements":
     st.title("💻Skils and archievements ")
     st.subheader("Programming languages")
-    skill_python = st.slider("python", 0,100,90)
-    skill_js = st.slider("Javascript", 0,100,75)
+    skill_python = st.slider("python", 0,100,75)
+    skill_js = st.slider("Javascript", 0,100,55)
     st.progress(skill_python)
 
     st.subheader("Machine Learning / Data Science")
-    skill_AI = st.slider("Artificial Intelligence", 0,100,65)
-    skill_AI = st.slider("Data Analytics", 0,100,55)
-    st.progress(skill_python)
+    skill_AI = st.slider("Artificial Intelligence", 0,100,70)
+    skill_DA = st.slider("Data Analytics", 0,100,55)
+    st.progress(skill_AI)
 
     st.subheader("Web Development")
     skill_AI = st.slider("HTML", 0,100,90)
-    skill_AI = st.slider("CSS", 0,100,93)
-    skill_AI = st.slider("JS", 0,100,60)
+    skill_AI = st.slider("CSS", 0,100,95)
+    skill_AI = st.slider("JS", 0,100,55)
     st.progress(skill_python)
     
     st.subheader("Certifcates & Archievements")
